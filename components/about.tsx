@@ -81,7 +81,7 @@ export function About() {
               />
             </div>
             <div className="absolute -bottom-6 -left-6 bg-primary text-primary-foreground p-6 rounded-xl">
-              <div className="text-4xl font-bold">8+</div>
+              <div className="text-4xl font-bold">5+</div>
               <div className="text-sm">lat doświadczenia</div>
             </div>
           </div>
