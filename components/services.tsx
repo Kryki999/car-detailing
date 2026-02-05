@@ -3,59 +3,35 @@ import { useRef, useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 import { LottieIcon } from "@/components/lottie-icon"
 
-const services = [
-  {
-    iconPath: "/ScrubBrush.json",
-    title: "Mycie detailingowe",
-    description: "Kompleksowe mycie z użyciem profesjonalnych środków i technik bezpiecznych dla lakieru. Stosujemy metodę dwuwiadrową z pełną dekontaminacją i bezpiecznym osuszaniem.",
-  },
-  {
-    iconPath: "/Shield.json",
-    title: "Powłoki ceramiczne",
-    description: "Długotrwała ochrona lakieru z efektem hydrofobowym i głębokim połyskiem. Zapewniamy certyfikowaną ochronę do 5 lat z efektem samooczyszczania.",
-  },
-  {
-    iconPath: "/Stars.json",
-    title: "Korekta lakieru",
-    description: "Profesjonalne polerowanie usuwające rysy, hologramy i oxidację lakieru. Gwarantujemy głęboki połysk i bezpieczeństwo dzięki pomiarom grubości powłoki.",
-  },
-  {
-    iconPath: "/Cleaning.json",
-    title: "Detailing wnętrza",
-    description: "Kompleksowe czyszczenie i pielęgnacja wszystkich elementów wnętrza pojazdu. Obejmuje pranie tapicerki, czyszczenie skór oraz ozonowanie.",
-  },
-  {
-    iconPath: "/WaterDrop.json",
-    title: "Folie ochronne PPF",
-    description: "Niewidoczna ochrona przed odpryskami, rysami i czynnikami zewnętrznymi. Oferujemy certyfikowane folie samoregenerujące z 10-letnią gwarancją.",
-  },
-  {
-    iconPath: "/Light.json",
-    title: "Renowacja reflektorów",
-    description: "Przywracanie pełnej przejrzystości i blasku zmatowiałym reflektorom. Usługa obejmuje polerowanie i zabezpieczenie powłoką UV z gwarancją jakości.",
-  },
-]
+interface ServiceItem {
+  title: string
+  description: string
+  icon?: string
+  _key: string
+}
 
-function ServiceCard({ service, index }: { service: (typeof services)[0]; index: number }) {
+interface ServicesProps {
+  label?: string
+  heading?: string
+  description?: string
+  servicesList?: ServiceItem[]
+}
+
+function ServiceCard({ service, index }: { service: ServiceItem; index: number }) {
   const [isVisible, setIsVisible] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.2 },
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true) },
+      { threshold: 0.2 }
     )
-
-    if (ref.current) {
-      observer.observe(ref.current)
-    }
-
+    if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
   }, [])
+
+  const iconName = service.icon || "Stars"
+  const iconPath = iconName.endsWith(".json") ? iconName : `/${iconName}.json`
 
   return (
     <div
@@ -67,32 +43,50 @@ function ServiceCard({ service, index }: { service: (typeof services)[0]; index:
       style={{ transitionDelay: `${index * 100}ms` }}
     >
       <div className="mb-6 transition-transform duration-500 group-hover:scale-110">
-        <LottieIcon path={service.iconPath} className="w-50 h-50" />
+        <LottieIcon path={iconPath} className="w-48 h-48" />
       </div>
 
       <h3 className="text-xl font-bold text-foreground mb-3 uppercase tracking-wide">{service.title}</h3>
-      <p className="text-muted-foreground leading-relaxed">{service.description}</p>
+      <p className="text-muted-foreground leading-relaxed mb-4">{service.description}</p>
 
       <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
     </div>
   )
 }
 
-export function Services() {
+export function Services(props: ServicesProps) {
+  // Early return if no services data from CMS
+  if (!props.servicesList || props.servicesList.length === 0) {
+    return null
+  }
+
   return (
-    <section id="uslugi" className="py-24 bg-background">
+    <section className="py-24 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         <div className="text-center mb-16">
-          <span className="text-primary text-sm font-semibold tracking-wider uppercase">Nasze usługi</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">Kompleksowa pielęgnacja</h2>
-          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Oferujemy pełen zakres usług detailingowych dla najbardziej wymagających klientów
-          </p>
+          {props.label && (
+            <span className="text-primary text-sm font-semibold tracking-wider uppercase block mb-3">
+              {props.label}
+            </span>
+          )}
+
+          {props.heading && (
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+              {props.heading}
+            </h2>
+          )}
+
+          {props.description && (
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              {props.description}
+            </p>
+          )}
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {services.map((service, index) => (
-            <ServiceCard key={service.title} service={service} index={index} />
+          {props.servicesList.map((service, index) => (
+            <ServiceCard key={service._key || index} service={service} index={index} />
           ))}
         </div>
       </div>

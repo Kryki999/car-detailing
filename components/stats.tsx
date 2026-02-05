@@ -2,12 +2,16 @@
 
 import { useEffect, useState, useRef } from "react"
 
-const stats = [
-  { value: 500, suffix: "+", label: "Zadowolonych klientów" },
-  { value: 5, suffix: "", label: "Lat doświadczenia" },
-  { value: 900, suffix: "+", label: "Wykonanych usług" },
-  { value: 100, suffix: "%", label: "Satysfakcji" },
-]
+interface StatItem {
+  value: number
+  suffix: string
+  label: string
+  _key?: string
+}
+
+interface StatsProps {
+  statsList?: StatItem[]
+}
 
 function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
   const [count, setCount] = useState(0)
@@ -60,13 +64,18 @@ function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
   )
 }
 
-export function Stats() {
+export function Stats(props: StatsProps) {
+  // Early return if no data from CMS
+  if (!props.statsList || props.statsList.length === 0) {
+    return null
+  }
+
   return (
     <section className="py-20 bg-card border-y border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          {stats.map((stat, index) => (
-            <div key={index} className="text-center">
+        <div className="flex flex-wrap justify-center gap-8 lg:gap-12">
+          {props.statsList.map((stat, index) => (
+            <div key={stat._key || index} className="text-center w-[45%] lg:w-auto min-w-[150px]">
               <AnimatedNumber value={stat.value} suffix={stat.suffix} />
               <p className="mt-2 text-sm sm:text-base text-muted-foreground">{stat.label}</p>
             </div>
@@ -76,3 +85,4 @@ export function Stats() {
     </section>
   )
 }
+

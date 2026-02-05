@@ -1,32 +1,54 @@
 "use client"
 
-const partners = [
-  { name: "Porsche", logo: "PORSCHE" },
-  { name: "BMW", logo: "BMW" },
-  { name: "Mercedes", logo: "MERCEDES" },
-  { name: "Audi", logo: "AUDI" },
-  { name: "Ferrari", logo: "FERRARI" },
-  { name: "Lamborghini", logo: "LAMBORGHINI" },
-  { name: "Maserati", logo: "MASERATI" },
-  { name: "Bentley", logo: "BENTLEY" },
-]
+import Image from "next/image"
 
-export function Partners() {
+interface PartnerLogo {
+  name: string
+  logoUrl?: string
+  _key?: string
+}
+
+interface PartnersProps {
+  heading?: string
+  logos?: PartnerLogo[]
+}
+
+export function Partners(props: PartnersProps) {
+  const { heading, logos } = props
+
+  // Early return if no logos
+  if (!logos || logos.length === 0) {
+    return null
+  }
+
   return (
     <section className="py-16 bg-background border-y border-border overflow-hidden w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-center text-sm text-muted-foreground mb-10 uppercase tracking-wider">
-          Zaufali nam właściciele marek
-        </p>
+        {heading && (
+          <p className="text-center text-sm text-muted-foreground mb-10 uppercase tracking-wider">
+            {heading}
+          </p>
+        )}
       </div>
 
       <div className="relative">
         <div className="flex animate-scroll-left">
-          {[...partners, ...partners].map((partner, index) => (
-            <div key={index} className="flex-shrink-0 mx-8 sm:mx-12 lg:mx-16">
-              <span className="text-2xl sm:text-3xl font-bold text-muted-foreground/50 hover:text-muted-foreground transition-colors tracking-widest">
-                {partner.logo}
-              </span>
+          {[...logos, ...logos].map((partner, index) => (
+            <div key={`${partner._key || partner.name}-${index}`} className="flex-shrink-0 mx-8 sm:mx-12 lg:mx-16">
+              {partner.logoUrl ? (
+                <div className="relative h-12 sm:h-14 lg:h-16 w-32 sm:w-40 lg:w-48">
+                  <Image
+                    src={partner.logoUrl}
+                    alt={partner.name}
+                    fill
+                    className="object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all"
+                  />
+                </div>
+              ) : (
+                <span className="text-2xl sm:text-3xl font-bold text-muted-foreground/50 hover:text-muted-foreground transition-colors tracking-widest">
+                  {partner.name}
+                </span>
+              )}
             </div>
           ))}
         </div>

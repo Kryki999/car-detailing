@@ -4,33 +4,30 @@ import { useRef, useEffect, useState } from "react"
 import { Star, Quote } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-const reviews = [
-  {
-    name: "Michał K.",
-    car: "BMW M4",
-    rating: 5,
-    text: "Fantastyczna robota! Lakier po korekcie wygląda lepiej niż prosto z salonu. Polecam wszystkim właścicielom aut premium.",
-    avatar: "/professional-man-portrait.png",
-  },
-  {
-    name: "Anna W.",
-    car: "Porsche Cayenne",
-    rating: 5,
-    text: "Profesjonalne podejście i dbałość o każdy detal. Powłoka ceramiczna trzyma się świetnie już rok. Na pewno wrócę!",
-    avatar: "/professional-woman-portrait.png",
-  },
-  {
-    name: "Tomasz B.",
-    car: "Mercedes AMG GT",
-    rating: 5,
-    text: "Nie wiedziałem, że mój samochód może tak wyglądać! Efekt przeszedł moje najśmielsze oczekiwania. Top klasa!",
-    avatar: "/confident-businessman.png",
-  },
-]
+interface ReviewItem {
+  name: string
+  rating: number
+  text: string
+  _key?: string
+}
 
-export function Reviews() {
+interface ReviewsProps {
+  label?: string
+  heading?: string
+  googleRating?: string
+  reviewsList?: ReviewItem[]
+}
+
+export function Reviews(props: ReviewsProps) {
+  const { label, heading, googleRating, reviewsList } = props
+
+  // Early return if no reviews
+  if (!reviewsList || reviewsList.length === 0) {
+    return null
+  }
+
+  const sectionRef = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
-  const ref = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -39,65 +36,63 @@ export function Reviews() {
           setIsVisible(true)
         }
       },
-      { threshold: 0.2 },
+      { threshold: 0.1 }
     )
 
-    if (ref.current) {
-      observer.observe(ref.current)
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
     }
 
     return () => observer.disconnect()
   }, [])
 
   return (
-    <section id="opinie" ref={ref} className="py-24 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <span className="text-primary text-sm font-semibold tracking-wider uppercase">Opinie</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">Co mówią klienci</h2>
-          <div className="mt-4 flex items-center justify-center gap-2">
-            <div className="flex">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 fill-primary text-primary" />
-              ))}
+    <section ref={sectionRef} className="py-24 md:py-32 bg-background">
+      <div className="container mx-auto px-4">
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          {label && <p className="text-primary font-semibold mb-4">{label}</p>}
+          {heading && <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">{heading}</h2>}
+          {googleRating && (
+            <div className="flex items-center justify-center gap-2 text-2xl font-semibold">
+              <Star className="h-6 w-6 fill-primary text-primary" />
+              <span>{googleRating}</span>
             </div>
-            <span className="text-muted-foreground">5.0 na Google</span>
-          </div>
+          )}
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-          {reviews.map((review, index) => (
-            <div
-              key={index}
-              className={cn(
-                "bg-card border border-border rounded-2xl p-6 sm:p-8 transition-all duration-700",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-              )}
-              style={{ transitionDelay: `${index * 150}ms` }}
-            >
-              <Quote className="w-10 h-10 text-primary/20 mb-4" />
+        {/* Reviews Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {reviewsList.map((review, index) => {
+            return (
+              <div
+                key={review._key || index}
+                className={cn(
+                  "bg-card border border-border rounded-2xl p-8 relative transition-all duration-700 flex flex-col h-full",
+                  isVisible
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-8"
+                )}
+                style={{ transitionDelay: `${index * 150}ms` }}
+              >
+                <Quote className="absolute top-6 right-6 h-12 w-12 text-primary/10" />
 
-              <div className="flex mb-4">
-                {[...Array(review.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-primary text-primary" />
-                ))}
-              </div>
+                <div className="flex gap-1 mb-6">
+                  {Array.from({ length: review.rating }).map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+                  ))}
+                </div>
 
-              <p className="text-foreground leading-relaxed mb-6">{review.text}</p>
+                <p className="text-muted-foreground leading-relaxed mb-6 flex-grow text-lg italic">
+                  &quot;{review.text}&quot;
+                </p>
 
-              <div className="flex items-center gap-4">
-                <img
-                  src={review.avatar || "/placeholder.svg"}
-                  alt={review.name}
-                  className="w-12 h-12 rounded-full object-cover"
-                />
-                <div>
-                  <p className="font-semibold text-foreground">{review.name}</p>
-                  <p className="text-sm text-muted-foreground">{review.car}</p>
+                <div className="mt-auto pt-4 border-t border-border/50">
+                  <h3 className="font-bold text-lg">{review.name}</h3>
                 </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>

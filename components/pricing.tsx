@@ -5,42 +5,32 @@ import { Check, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-const plans = [
-  {
-    name: "Standard",
-    description: "Idealna opcja dla regularnej pielęgnacji",
-    price: "499",
-    popular: false,
-    isCustomPrice: false,
-    features: [
-      "Mycie detailingowe",
-      "Odkurzanie wnętrza",
-      "Czyszczenie szyb",
-      "Dressing opon",
-      "Odświeżenie plastików",
-      "Podstawowa ochrona lakieru",
-    ],
-  },
-  {
-    name: "Premium",
-    description: "Kompleksowa pielęgnacja premium",
-    price: "1299",
-    popular: true,
-    isCustomPrice: true,
-    features: [
-      "Wszystko z pakietu Standard",
-      "Korekta 1-etapowa lakieru",
-      "Powłoka ceramiczna 12 mies.",
-      "Pranie tapicerki / czyszczenie skóry",
-      "Renowacja reflektorów",
-      "Detailing felg",
-      "Ozonowanie wnętrza",
-      "Gwarancja jakości",
-    ],
-  },
-]
+interface PricingPlan {
+  name: string
+  description: string
+  price: string
+  popular: boolean
+  isCustomPrice: boolean
+  features: string[]
+  _key?: string
+}
 
-export function Pricing() {
+interface PricingProps {
+  label?: string
+  heading?: string
+  description?: string
+  plans?: PricingPlan[]
+  footerNote?: string
+}
+
+export function Pricing(props: PricingProps) {
+  const { label, heading, description, plans, footerNote } = props
+
+  // Early return if no plans
+  if (!plans || plans.length === 0) {
+    return null
+  }
+
   const [isVisible, setIsVisible] = useState(false)
   const ref = useRef<HTMLElement>(null)
 
@@ -65,17 +55,23 @@ export function Pricing() {
     <section id="cennik" ref={ref} className="py-24 bg-background">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <span className="text-primary text-sm font-semibold tracking-wider uppercase">Cennik</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">Wybierz pakiet dla siebie</h2>
-          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Ceny orientacyjne - zadzwoń po szczegółową wycenę dostosowaną do Twojego pojazdu
-          </p>
+          {label && (
+            <span className="text-primary text-sm font-semibold tracking-wider uppercase">{label}</span>
+          )}
+          {heading && (
+            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">{heading}</h2>
+          )}
+          {description && (
+            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+              {description}
+            </p>
+          )}
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
           {plans.map((plan, index) => (
             <div
-              key={plan.name}
+              key={plan._key || index}
               className={cn(
                 "relative bg-card border rounded-2xl p-8 transition-all duration-700 flex flex-col h-full",
                 plan.popular ? "border-primary" : "border-border",
@@ -138,9 +134,11 @@ export function Pricing() {
           ))}
         </div>
 
-        <p className="text-center mt-8 text-sm text-muted-foreground">
-          Ostateczna cena zależy od stanu pojazdu i zakresu prac. Oferujemy bezpłatną wycenę.
-        </p>
+        {footerNote && (
+          <p className="text-center mt-8 text-sm text-muted-foreground">
+            {footerNote}
+          </p>
+        )}
       </div>
     </section>
   )
