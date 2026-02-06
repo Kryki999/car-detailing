@@ -42,6 +42,8 @@ export function Partners(props: PartnersProps) {
                     src={urlFor(partner.logo).width(400).url()}
                     alt={partner.name}
                     fill
+                    loading="lazy"
+                    quality={75}
                     className="object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all"
                   />
                 </div>

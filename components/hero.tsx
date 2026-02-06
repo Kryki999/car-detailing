@@ -6,6 +6,20 @@ import { Button } from "@/components/ui/button"
 import { ChevronDown } from "lucide-react"
 import { urlFor } from "@/sanity/lib/image"
 
+// Hook to detect desktop viewport
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  useEffect(() => {
+    const checkIsDesktop = () => setIsDesktop(window.innerWidth >= 768)
+    checkIsDesktop()
+    window.addEventListener('resize', checkIsDesktop)
+    return () => window.removeEventListener('resize', checkIsDesktop)
+  }, [])
+
+  return isDesktop
+}
+
 interface HeroProps {
   title?: string
   subtitle?: string
@@ -31,6 +45,7 @@ export function Hero({
 }: HeroProps) {
 
   const [loaded, setLoaded] = useState(false)
+  const isDesktop = useIsDesktop()
   useEffect(() => { setLoaded(true) }, [])
 
   // Generate image URLs
@@ -50,6 +65,7 @@ export function Hero({
             alt="Hero background"
             fill
             priority
+            quality={75}
             sizes="100vw"
             className="object-cover"
           />
@@ -58,8 +74,8 @@ export function Hero({
         </div>
       )}
 
-      {/* Desktop Background - Video or Image */}
-      {videoUrl ? (
+      {/* Desktop Background - Video or Image (only render video on desktop) */}
+      {videoUrl && isDesktop ? (
         <div className="absolute inset-0 hidden md:block">
           <video
             autoPlay
@@ -81,6 +97,7 @@ export function Hero({
             alt="Hero background"
             fill
             priority
+            quality={80}
             sizes="100vw"
             className="object-cover"
           />

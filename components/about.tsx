@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef, useEffect, useState } from "react"
+import Image from "next/image"
 import { Award, Users, Clock, Shield, LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { urlFor } from "@/sanity/lib/image"
@@ -120,11 +121,15 @@ export function About(props: AboutProps) {
               )}
               style={{ transitionDelay: "200ms" }}
             >
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden">
-                <img
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden relative">
+                <Image
                   src={imageUrl}
                   alt={heading || "About"}
-                  className="w-full h-full object-cover"
+                  fill
+                  loading="lazy"
+                  quality={75}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
                 />
               </div>
               {badgeNumber && badgeText && (
