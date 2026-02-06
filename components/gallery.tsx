@@ -3,10 +3,11 @@
 import { useRef, useEffect, useState } from "react"
 import { ImageComparison } from "./image-comparison"
 import { cn } from "@/lib/utils"
+import { urlFor } from "@/sanity/lib/image"
 
 interface GalleryItem {
-  beforeImageUrl?: string
-  afterImageUrl?: string
+  beforeImage?: any
+  afterImage?: any
   title: string
   _key?: string
 }
@@ -93,8 +94,8 @@ export function Gallery(props: GalleryProps) {
                     >
                       <div className="rounded-xl overflow-hidden">
                         <ImageComparison
-                          beforeImage={item.beforeImageUrl || "/placeholder.svg"}
-                          afterImage={item.afterImageUrl || "/placeholder.svg"}
+                          beforeImage={item.beforeImage ? urlFor(item.beforeImage).width(1600).format('webp').quality(85).url() : "/placeholder.svg"}
+                          afterImage={item.afterImage ? urlFor(item.afterImage).width(1600).format('webp').quality(85).url() : "/placeholder.svg"}
                           className="aspect-[4/3]"
                         />
                       </div>

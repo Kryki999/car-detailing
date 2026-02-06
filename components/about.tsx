@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from "react"
 import { Award, Users, Clock, Shield, LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { urlFor } from "@/sanity/lib/image"
 
 interface Highlight {
   icon: string
@@ -16,7 +17,7 @@ interface AboutProps {
   paragraph1?: string
   paragraph2?: string
   highlights?: Highlight[]
-  imageUrl?: string
+  image?: any
   badgeNumber?: string
   badgeText?: string
 }
@@ -36,10 +37,13 @@ export function About(props: AboutProps) {
     paragraph1,
     paragraph2,
     highlights,
-    imageUrl,
+    image,
     badgeNumber,
     badgeText
   } = props
+
+  // Generate image URL
+  const imageUrl = image ? urlFor(image).width(1200).format('webp').quality(85).url() : undefined
 
   // Early return if no key content
   if (!heading && !paragraph1) {

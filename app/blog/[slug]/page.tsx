@@ -7,6 +7,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Calendar, Clock } from "lucide-react"
+import { urlFor } from "@/sanity/lib/image"
 
 // GROQ query for single post
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
@@ -14,17 +15,15 @@ const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
   "slug": slug.current,
   publishedAt,
   excerpt,
-  "mainImageUrl": mainImage.asset->url + "?fm=webp&q=85&w=1600",
+  mainImage,
   body[]{
     ...,
     _type == "image" => {
       ...,
-      "url": asset->url + "?fm=webp&q=85&w=1200"
+      asset
     }
   },
-  "additionalImages": additionalImages[]{
-    "url": asset->url + "?fm=webp&q=85&w=800"
-  }
+  additionalImages
 }`
 
 // Generate static params for all posts
@@ -99,7 +98,7 @@ const portableTextComponents: PortableTextComponents = {
         image: ({ value }) => (
             <div className="my-8 rounded-xl overflow-hidden">
                 <Image
-                    src={value.url}
+                    src={value.asset ? urlFor(value.asset).width(1200).format('webp').quality(85).url() : '/placeholder.svg'}
                     alt={value.alt || "Blog image"}
                     width={800}
                     height={500}
@@ -146,6 +145,9 @@ export default async function BlogPostPage({
 
     const readTime = estimateReadTime(post.body)
 
+    // Generate image URLs
+    const mainImageUrl = post.mainImage ? urlFor(post.mainImage).width(1600).format('webp').quality(85).url() : undefined
+
     return (
         <main className="min-h-screen bg-background">
             <Navbar />
@@ -163,11 +165,11 @@ export default async function BlogPostPage({
                 </div>
 
                 {/* Main Image */}
-                {post.mainImageUrl && (
+                {mainImageUrl && (
                     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
                         <div className="relative aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl">
                             <Image
-                                src={post.mainImageUrl}
+                                src={mainImageUrl}
                                 alt={post.title}
                                 fill
                                 className="object-cover"
@@ -218,13 +220,13 @@ export default async function BlogPostPage({
                     <div className="mt-12">
                         <h3 className="text-xl font-bold text-foreground mb-6">Galeria</h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {post.additionalImages.map((img: { url: string }, index: number) => (
+                            {post.additionalImages.map((img: any, index: number) => (
                                 <div
                                     key={index}
                                     className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
                                 >
                                     <Image
-                                        src={img.url}
+                                        src={img ? urlFor(img).width(800).format('webp').quality(85).url() : '/placeholder.svg'}
                                         alt={`${post.title} - zdjęcie ${index + 1}`}
                                         fill
                                         className="object-cover hover:scale-105 transition-transform duration-500"

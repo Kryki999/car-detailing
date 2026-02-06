@@ -1,10 +1,11 @@
 "use client"
 
 import Image from "next/image"
+import { urlFor } from "@/sanity/lib/image"
 
 interface PartnerLogo {
   name: string
-  logoUrl?: string
+  logo?: any
   _key?: string
 }
 
@@ -35,10 +36,10 @@ export function Partners(props: PartnersProps) {
         <div className="flex animate-scroll-left">
           {[...logos, ...logos].map((partner, index) => (
             <div key={`${partner._key || partner.name}-${index}`} className="flex-shrink-0 mx-8 sm:mx-12 lg:mx-16">
-              {partner.logoUrl ? (
+              {partner.logo ? (
                 <div className="relative h-12 sm:h-14 lg:h-16 w-32 sm:w-40 lg:w-48">
                   <Image
-                    src={partner.logoUrl}
+                    src={urlFor(partner.logo).width(400).format('webp').quality(85).url()}
                     alt={partner.name}
                     fill
                     className="object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all"

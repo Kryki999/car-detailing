@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ChevronDown } from "lucide-react"
+import { urlFor } from "@/sanity/lib/image"
 
 interface HeroProps {
   title?: string
@@ -12,9 +13,9 @@ interface HeroProps {
   ctaLink?: string
   secondCtaText?: string
   secondCtaLink?: string
-  imageUrl?: string
+  backgroundImage?: any
   videoUrl?: string
-  mobileImageUrl?: string
+  mobileImage?: any
 }
 
 export function Hero({
@@ -24,13 +25,17 @@ export function Hero({
   ctaLink,
   secondCtaText,
   secondCtaLink,
-  imageUrl,
+  backgroundImage,
   videoUrl,
-  mobileImageUrl
+  mobileImage
 }: HeroProps) {
 
   const [loaded, setLoaded] = useState(false)
   useEffect(() => { setLoaded(true) }, [])
+
+  // Generate image URLs
+  const imageUrl = backgroundImage ? urlFor(backgroundImage).width(2400).format('webp').quality(85).url() : undefined
+  const mobileImageUrl = mobileImage ? urlFor(mobileImage).width(1200).format('webp').quality(85).url() : undefined
 
   // No background at all if no media provided
   const hasBackground = imageUrl || videoUrl || mobileImageUrl

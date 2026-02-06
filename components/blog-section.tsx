@@ -6,13 +6,14 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, ChevronUp, Calendar, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { urlFor } from "@/sanity/lib/image"
 
 interface BlogPost {
     title: string
     slug: string
     excerpt: string
     publishedAt: string
-    mainImageUrl: string
+    mainImage: any
 }
 
 interface BlogSectionProps {
@@ -53,7 +54,7 @@ function BlogCard({
         >
             {/* Background Image */}
             <Image
-                src={post.mainImageUrl}
+                src={post.mainImage ? urlFor(post.mainImage).width(1200).format('webp').quality(85).url() : '/placeholder.svg'}
                 alt={post.title}
                 fill
                 sizes={featured ? "(max-width: 1024px) 100vw, 60vw" : "(max-width: 640px) 100vw, 50vw"}
