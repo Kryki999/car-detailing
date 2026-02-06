@@ -84,10 +84,10 @@ export function Footer() {
             © {new Date().getFullYear()} Elite Detailing. Wszelkie prawa zastrzeżone.
           </p>
           <div className="flex gap-6">
-            <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            <Link href="#" aria-label="Polityka prywatności" className="text-sm text-muted-foreground hover:text-primary transition-colors">
               Polityka prywatności
             </Link>
-            <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            <Link href="#" aria-label="Regulamin" className="text-sm text-muted-foreground hover:text-primary transition-colors">
               Regulamin
             </Link>
           </div>

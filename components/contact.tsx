@@ -111,7 +111,7 @@ export function Contact(props: ContactProps) {
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">Telefon</h3>
-                    <a href={`tel:${phone.replace(/\s/g, '')}`} className="text-muted-foreground hover:text-primary transition-colors">
+                    <a href={`tel:${phone.replace(/\s/g, '')}`} className="text-foreground hover:text-primary transition-colors">
                       {phone}
                     </a>
                   </div>
@@ -156,6 +156,9 @@ export function Contact(props: ContactProps) {
                   {instagramUrl && (
                     <a
                       href={instagramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Odwiedź nas na Instagramie"
                       className="w-12 h-12 rounded-xl bg-secondary hover:bg-primary/20 flex items-center justify-center transition-colors"
                     >
                       <Instagram className="w-5 h-5 text-foreground" />
@@ -164,6 +167,9 @@ export function Contact(props: ContactProps) {
                   {facebookUrl && (
                     <a
                       href={facebookUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Odwiedź nas na Facebooku"
                       className="w-12 h-12 rounded-xl bg-secondary hover:bg-primary/20 flex items-center justify-center transition-colors"
                     >
                       <Facebook className="w-5 h-5 text-foreground" />
@@ -194,6 +200,7 @@ export function Contact(props: ContactProps) {
                   src={mapEmbedUrl}
                   width="100%"
                   height="100%"
+                  title="Lokalizacja naszego studia"
                   style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) brightness(0.95) contrast(0.9)" }}
                   allowFullScreen
                   loading="lazy"

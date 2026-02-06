@@ -17,7 +17,7 @@ export default defineConfig({
         visionTool({ defaultApiVersion: apiVersion }),
         presentationTool({
             previewUrl: {
-                origin: typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000',
+                origin: typeof window !== 'undefined' ? window.location.origin : 'https://car-detailing-henna.vercel.app',
                 previewMode: {
                     enable: '/api/draft',
                 }

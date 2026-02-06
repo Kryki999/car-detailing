@@ -14,16 +14,16 @@ const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
   "slug": slug.current,
   publishedAt,
   excerpt,
-  "mainImageUrl": mainImage.asset->url,
+  "mainImageUrl": mainImage.asset->url + "?fm=webp&q=85&w=1600",
   body[]{
     ...,
     _type == "image" => {
       ...,
-      "url": asset->url
+      "url": asset->url + "?fm=webp&q=85&w=1200"
     }
   },
   "additionalImages": additionalImages[]{
-    "url": asset->url
+    "url": asset->url + "?fm=webp&q=85&w=800"
   }
 }`
 

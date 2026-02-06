@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ChevronDown } from "lucide-react"
 
@@ -38,10 +39,15 @@ export function Hero({
     <section className="relative h-[100dvh] min-h-screen flex items-center justify-center overflow-hidden">
       {/* Mobile Background Image */}
       {(mobileImageUrl || imageUrl) && (
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat md:hidden"
-          style={{ backgroundImage: `url('${mobileImageUrl || imageUrl}')` }}
-        >
+        <div className="absolute inset-0 md:hidden">
+          <Image
+            src={mobileImageUrl || imageUrl || ""}
+            alt="Hero background"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
           <div className="absolute inset-0 bg-black/30" />
           <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/10 to-background" />
         </div>
@@ -56,6 +62,7 @@ export function Hero({
             muted
             playsInline
             className="absolute inset-0 w-full h-full object-cover"
+            aria-hidden="true"
           >
             <source src={videoUrl} type="video/mp4" />
           </video>
@@ -63,10 +70,15 @@ export function Hero({
           <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/20 to-background" />
         </div>
       ) : imageUrl && (
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat hidden md:block"
-          style={{ backgroundImage: `url('${imageUrl}')` }}
-        >
+        <div className="absolute inset-0 hidden md:block">
+          <Image
+            src={imageUrl}
+            alt="Hero background"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/20 to-background" />
         </div>
       )}

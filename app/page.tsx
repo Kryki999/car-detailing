@@ -10,9 +10,9 @@ const PAGE_QUERY = `*[_type == "page" && slug.current == "home"][0]{
     // Konfiguracja dla Hero
     _type == "heroSection" => {
       ...,
-      "imageUrl": backgroundImage.asset->url,
+      "imageUrl": backgroundImage.asset->url + "?fm=webp&q=85&w=2400",
       "videoUrl": desktopVideo.asset->url,
-      "mobileImageUrl": mobileImage.asset->url
+      "mobileImageUrl": mobileImage.asset->url + "?fm=webp&q=85&w=1200"
     },
     // Konfiguracja dla Services
     _type == "services" => {
@@ -90,8 +90,8 @@ const PAGE_QUERY = `*[_type == "page" && slug.current == "home"][0]{
       description,
       galleryItems[]{
         title,
-        "beforeImageUrl": beforeImage.asset->url,
-        "afterImageUrl": afterImage.asset->url
+        "beforeImageUrl": beforeImage.asset->url + "?fm=webp&q=85&w=1600",
+        "afterImageUrl": afterImage.asset->url + "?fm=webp&q=85&w=1600"
       }
     },
     // Konfiguracja dla About
@@ -104,7 +104,7 @@ const PAGE_QUERY = `*[_type == "page" && slug.current == "home"][0]{
         icon,
         label
       },
-      "imageUrl": image.asset->url,
+      "imageUrl": image.asset->url + "?fm=webp&q=85&w=1200",
       badgeNumber,
       badgeText
     },
@@ -130,7 +130,7 @@ const PAGE_QUERY = `*[_type == "page" && slug.current == "home"][0]{
       heading,
       logos[]{
         name,
-        "logoUrl": logo.asset->url
+        "logoUrl": logo.asset->url + "?fm=webp&q=85&w=400"
       }
     },
     // Konfiguracja dla Blog Section
@@ -142,7 +142,7 @@ const PAGE_QUERY = `*[_type == "page" && slug.current == "home"][0]{
         "slug": slug.current,
         excerpt,
         publishedAt,
-        "mainImageUrl": mainImage.asset->url
+        "mainImageUrl": mainImage.asset->url + "?fm=webp&q=85&w=1200"
       }
     }
   }

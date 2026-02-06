@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 interface ImageComparisonProps {
@@ -68,19 +69,25 @@ export function ImageComparison({
       onTouchStart={() => setIsDragging(true)}
     >
       {/* After Image (Background) */}
-      <img
-        src={afterImage || "/placeholder.svg"}
-        alt={afterLabel}
-        className="absolute inset-0 w-full h-full object-cover"
-        draggable={false}
-      />
+      <div className="absolute inset-0">
+        <Image
+          src={afterImage || "/placeholder.svg"}
+          alt={afterLabel}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover"
+          draggable={false}
+        />
+      </div>
 
       {/* Before Image (Clipped) */}
       <div className="absolute inset-0 overflow-hidden" style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}>
-        <img
+        <Image
           src={beforeImage || "/placeholder.svg"}
           alt={beforeLabel}
-          className="w-full h-full object-cover"
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover"
           draggable={false}
         />
       </div>

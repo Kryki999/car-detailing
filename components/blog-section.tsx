@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, ChevronUp, Calendar, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -51,9 +52,12 @@ function BlogCard({
             )}
         >
             {/* Background Image */}
-            <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                style={{ backgroundImage: `url('${post.mainImageUrl}')` }}
+            <Image
+                src={post.mainImageUrl}
+                alt={post.title}
+                fill
+                sizes={featured ? "(max-width: 1024px) 100vw, 60vw" : "(max-width: 640px) 100vw, 50vw"}
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
             />
 
             {/* Gradient Overlay */}
