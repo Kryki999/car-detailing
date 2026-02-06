@@ -1,5 +1,21 @@
 {
-  "node": {},
+  "node": {
+    "7fbcde067bd101d92594f8b9cdcfa1ec78a45fdd7d": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/next-sanity/dist/visual-editing/server-actions/index.js [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "revalidateRootLayout",
+          "filename": "node_modules/next-sanity/dist/visual-editing/server-actions/index.js"
+        }
+      },
+      "layer": {
+        "app/page": "action-browser"
+      },
+      "filename": "node_modules/next-sanity/dist/visual-editing/server-actions/index.js",
+      "exportedName": "revalidateRootLayout"
+    }
+  },
   "edge": {},
   "encryptionKey": "rwxYbV2ur+gQm9Ctw3wMXmu47kjEtlX1MS4LU2H5C70="
 }
