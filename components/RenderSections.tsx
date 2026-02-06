@@ -1,34 +1,15 @@
-import dynamic from 'next/dynamic'
 import { Hero } from '@/components/hero'
 import { Services } from '@/components/services'
 import { Stats } from '@/components/stats'
 import { Process } from '@/components/process'
-
-// Dynamic imports for below-fold components (lazy loaded)
-const Reviews = dynamic(() => import('@/components/reviews').then(mod => ({ default: mod.Reviews })), {
-    loading: () => <div className="min-h-[400px]" />
-})
-const FAQ = dynamic(() => import('@/components/faq').then(mod => ({ default: mod.FAQ })), {
-    loading: () => <div className="min-h-[400px]" />
-})
-const Pricing = dynamic(() => import('@/components/pricing').then(mod => ({ default: mod.Pricing })), {
-    loading: () => <div className="min-h-[400px]" />
-})
-const Gallery = dynamic(() => import('@/components/gallery').then(mod => ({ default: mod.Gallery })), {
-    loading: () => <div className="min-h-[400px]" />
-})
-const About = dynamic(() => import('@/components/about').then(mod => ({ default: mod.About })), {
-    loading: () => <div className="min-h-[400px]" />
-})
-const Contact = dynamic(() => import('@/components/contact').then(mod => ({ default: mod.Contact })), {
-    loading: () => <div className="min-h-[400px]" />
-})
-const Partners = dynamic(() => import('@/components/partners').then(mod => ({ default: mod.Partners })), {
-    loading: () => <div className="min-h-[200px]" />
-})
-const BlogSection = dynamic(() => import('@/components/blog-section').then(mod => ({ default: mod.BlogSection })), {
-    loading: () => <div className="min-h-[400px]" />
-})
+import { Reviews } from '@/components/reviews'
+import { FAQ } from '@/components/faq'
+import { Pricing } from '@/components/pricing'
+import { Gallery } from '@/components/gallery'
+import { About } from '@/components/about'
+import { Contact } from '@/components/contact'
+import { Partners } from '@/components/partners'
+import { BlogSection } from '@/components/blog-section'
 
 // Mapa: Jakiej nazwie w Sanity odpowiada jaki komponent w kodzie
 const componentsMap: Record<string, any> = {
