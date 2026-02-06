@@ -34,8 +34,8 @@ export function Hero({
   useEffect(() => { setLoaded(true) }, [])
 
   // Generate image URLs
-  const imageUrl = backgroundImage ? urlFor(backgroundImage).width(2400).format('webp').quality(85).url() : undefined
-  const mobileImageUrl = mobileImage ? urlFor(mobileImage).width(1200).format('webp').quality(85).url() : undefined
+  const imageUrl = backgroundImage ? urlFor(backgroundImage).width(2400).url() : undefined
+  const mobileImageUrl = mobileImage ? urlFor(mobileImage).width(1200).url() : undefined
 
   // No background at all if no media provided
   const hasBackground = imageUrl || videoUrl || mobileImageUrl

@@ -43,7 +43,7 @@ export function About(props: AboutProps) {
   } = props
 
   // Generate image URL
-  const imageUrl = image ? urlFor(image).width(1200).format('webp').quality(85).url() : undefined
+  const imageUrl = image ? urlFor(image).width(1200).url() : undefined
 
   // Early return if no key content
   if (!heading && !paragraph1) {

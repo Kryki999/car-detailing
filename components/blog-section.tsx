@@ -54,7 +54,7 @@ function BlogCard({
         >
             {/* Background Image */}
             <Image
-                src={post.mainImage ? urlFor(post.mainImage).width(1200).format('webp').quality(85).url() : '/placeholder.svg'}
+                src={post.mainImage ? urlFor(post.mainImage).width(1200).url() : '/placeholder.svg'}
                 alt={post.title}
                 fill
                 sizes={featured ? "(max-width: 1024px) 100vw, 60vw" : "(max-width: 640px) 100vw, 50vw"}

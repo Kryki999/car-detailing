@@ -39,7 +39,7 @@ export function Partners(props: PartnersProps) {
               {partner.logo ? (
                 <div className="relative h-12 sm:h-14 lg:h-16 w-32 sm:w-40 lg:w-48">
                   <Image
-                    src={urlFor(partner.logo).width(400).format('webp').quality(85).url()}
+                    src={urlFor(partner.logo).width(400).url()}
                     alt={partner.name}
                     fill
                     className="object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all"
