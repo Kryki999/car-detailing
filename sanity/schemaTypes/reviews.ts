@@ -19,9 +19,21 @@ export const reviews = defineType({
         }),
         defineField({
             name: 'googleRating',
-            title: 'Tekst ratingu Google (np. "5.0 na Google")',
+            title: 'Tekst ratingu Google (np. "4.9 na Google")',
             type: 'string',
-            initialValue: '5.0 na Google'
+            initialValue: '4.9 na Google'
+        }),
+        defineField({
+            name: 'reviewCountText',
+            title: 'Tekst liczby opinii (np. "(75 opinii)")',
+            type: 'string',
+            initialValue: '(75 opinii)'
+        }),
+        defineField({
+            name: 'followersText',
+            title: 'Tekst obserwujących (np. "1000+ obserwujących")',
+            type: 'string',
+            initialValue: '1000+ obserwujących'
         }),
         defineField({
             name: 'reviewsList',

@@ -27,24 +27,16 @@ export const services = defineType({
             rows: 2,
             initialValue: 'Oferujemy pełen zakres usług detailingowych dla najbardziej wymagających klientów'
         }),
-        // 4. Lista usług
+        // 4. Lista usług - teraz referencje do dokumentów serviceItem
         defineField({
             name: 'servicesList',
-            title: 'Lista Kafelków',
+            title: 'Lista Usług',
+            description: 'Wybierz usługi z istniejących dokumentów (Usługa - Szczegóły)',
             type: 'array',
             of: [
                 {
-                    type: 'object',
-                    fields: [
-                        defineField({ name: 'title', title: 'Nazwa usługi', type: 'string' }),
-                        defineField({ name: 'description', title: 'Opis kafelka', type: 'text', rows: 3 }),
-                        defineField({
-                            name: 'icon',
-                            title: 'Ikona (Nazwa pliku)',
-                            description: 'Wpisz np: ScrubBrush, Stars, Shield',
-                            type: 'string'
-                        }),
-                    ]
+                    type: 'reference',
+                    to: [{ type: 'serviceItem' }]
                 }
             ]
         }),

@@ -1,5 +1,6 @@
 import { hero } from './hero'
 import { services } from './services'
+import { serviceItem } from './service-item'
 import { stats } from './stats'
 import { process } from './process'
 import { reviews } from './reviews'
@@ -17,6 +18,7 @@ export const schema = {
     types: [
         hero,
         services,
+        serviceItem,
         stats,
         process,
         reviews,

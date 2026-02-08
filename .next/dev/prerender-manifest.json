@@ -1,11 +1,1 @@
-{
-  "version": 4,
-  "routes": {},
-  "dynamicRoutes": {},
-  "notFoundRoutes": [],
-  "preview": {
-    "previewModeId": "f6ecc5ec1e9cd50bfd7701ee32afe88d",
-    "previewModeSigningKey": "97853228dd21eaaa36d8229e71656f17cb16014ae0e5ff64ab9c16d53b41bc5b",
-    "previewModeEncryptionKey": "ebabfdaf732d641abf585c89a462623d21e95680b52c9507c8434c5f04643850"
-  }
-}
+{"version":4,"routes":{"/blog/sol-drogowa-jak-chronic-lakier":{},"/blog/detailing-a-zwykla-myjnia-roznice":{},"/blog/czy-warto-powloka-ceramiczna":{},"/blog/pielegnacja-skorzanej-tapicerki":{}},"dynamicRoutes":{"/blog/[slug]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/blog/[slug]","routeRegex":"^\\/blog\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"8d5ea22c706826431a5dda78201b13f1","previewModeSigningKey":"cf66af6d492da326ed06b3e9c5f5f807ebe17c3cf5c77c19aeb8f82813cd5f00","previewModeEncryptionKey":"c74684e3c2b81ebe97d75b2188e5d11de266b1085ecde67982c2385c3abb8928"}}

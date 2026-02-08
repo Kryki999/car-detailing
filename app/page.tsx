@@ -19,10 +19,12 @@ const PAGE_QUERY = `*[_type == "page" && slug.current == "home"][0]{
       heading,
       label,
       description,
-      servicesList[]{
+      servicesList[]->{
+        _id,
         title,
         description,
-        icon
+        icon,
+        slug
       }
     },
     // Konfiguracja dla Stats
