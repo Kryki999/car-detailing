@@ -87,7 +87,7 @@ export function Process(props: ProcessProps) {
             {ctaText && ctaLink && (
               <Link
                 href={ctaLink}
-                className="px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors inline-flex items-center gap-2"
+                className="px-8 py-4 bg-primary text-black text-lg font-bold tracking-wide rounded-lg hover:bg-primary/90 transition-colors inline-flex items-center gap-2"
               >
                 {ctaText} <ArrowRight className="h-5 w-5" />
               </Link>

@@ -50,10 +50,10 @@ export function Navbar() {
           {/* Right Side - Phone Button + Hamburger Menu */}
           <div className="flex items-center gap-3">
             {/* Phone Button - Full number on desktop, icon + text on mobile */}
-            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full" asChild>
-              <a href="tel:+48123456789" className="flex items-center gap-2">
-                <Phone className="w-4 h-4" />
-                <span className="hidden sm:inline">+48 123 456 789</span>
+            <Button className="bg-primary hover:bg-primary/90 text-black rounded-full px-6 py-6" asChild>
+              <a href="tel:+48123456789" className="flex items-center gap-3">
+                <Phone className="w-5 h-5 fill-black" />
+                <span className="hidden sm:inline font-bold text-base tracking-wide">+48 123 456 789</span>
               </a>
             </Button>
 

@@ -2291,6 +2291,10 @@
     fill: var(--color-amber-400);
   }
 
+  .fill-black {
+    fill: var(--color-black);
+  }
+
   .fill-current {
     fill: currentColor;
   }
@@ -2383,6 +2387,10 @@
     padding-inline: calc(var(--spacing) * 8);
   }
 
+  .px-10 {
+    padding-inline: calc(var(--spacing) * 10);
+  }
+
   .py-0\.5 {
     padding-block: calc(var(--spacing) * .5);
   }
@@ -2413,6 +2421,10 @@
 
   .py-6 {
     padding-block: calc(var(--spacing) * 6);
+  }
+
+  .py-7 {
+    padding-block: calc(var(--spacing) * 7);
   }
 
   .py-12 {
@@ -2678,6 +2690,10 @@
 
   .text-background {
     color: var(--background);
+  }
+
+  .text-black {
+    color: var(--color-black);
   }
 
   .text-card-foreground {
@@ -3780,6 +3796,12 @@
   @media (hover: hover) {
     .hover\:text-accent-foreground:hover {
       color: var(--accent-foreground);
+    }
+  }
+
+  @media (hover: hover) {
+    .hover\:text-black:hover {
+      color: var(--color-black);
     }
   }
 

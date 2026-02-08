@@ -120,8 +120,8 @@ export function Pricing(props: PricingProps) {
                 className={cn(
                   "w-full py-6 mt-auto",
                   plan.popular
-                    ? "bg-primary hover:bg-primary/90 text-primary-foreground"
-                    : "bg-secondary hover:bg-secondary/80 text-secondary-foreground",
+                    ? "bg-primary hover:bg-primary/90 text-black font-bold text-lg"
+                    : "bg-secondary hover:bg-secondary/80 text-secondary-foreground font-semibold text-lg",
                 )}
                 asChild
               >

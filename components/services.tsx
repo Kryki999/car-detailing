@@ -67,7 +67,7 @@ function ServiceCard({ service, index }: { service: ServiceItem; index: number }
       {/* More Button */}
       {slug && (
         <Button variant="ghost" asChild className="group/btn mt-auto">
-          <Link href={`/services/${slug}`} className="flex items-center gap-2 text-primary hover:text-foreground transition-colors">
+          <Link href={`/services/${slug}`} className="flex items-center gap-2 text-primary hover:text-black transition-colors">
             Więcej
             <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
           </Link>

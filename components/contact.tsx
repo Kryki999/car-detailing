@@ -180,7 +180,7 @@ export function Contact(props: ContactProps) {
             )}
 
             {ctaText && ctaPhone && (
-              <Button className="mt-10 bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg" asChild>
+              <Button className="mt-10 bg-primary hover:bg-primary/90 text-black px-8 py-6 text-lg font-bold tracking-wide" asChild>
                 <a href={ctaPhone}>{ctaText}</a>
               </Button>
             )}
